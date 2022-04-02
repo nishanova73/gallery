@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}User{% endblock %}
+
+{% block menu %}
+{% endblock %}
+
+{% block content %}
+    <h1>Personal page{{ user_obj.get_full_name|default:user_obj.username }}</h1>
+    {% if user_obj.profile.avatar %}
+        <img class="avatar" src="{{ user_obj.profile.avatar.url }}" width="250" height="250" alt="user picture">
+    {% endif %}
+    <p>Nickname: {{ user_obj.username }}</p>
+    <p>Name: {{ user_obj.first_name }}</p>
+    <p>Second name: {{ user_obj.last_name }}</p>
+    <p>Date of birth: {{ user_obj.profile.birth_date|date:'d.m.Y' }}</p>
+    <p>Email: {{ user_obj.email }}</p>
+
+
+    <h2 class="text-center clear">Author's photos:</h2>
+    {% include 'partial/photo-list.html' %}
+    <h2 class="text-center clear">Albums:</h2>
+    {% include 'partial/album-list.html' %}
+    <h2 class="text-center clear">Favorite photos:</h2>
+     {% include 'partial/photo-list.html'  with photos=fav_photos %}
+    <h2 class="text-center clear">Favorite albums:</h2>
+     {% include 'partial/album-list.html'  with albums=fav_albums %}
+    <h2 class="text-center clear">Private photos:</h2>
+     {% include 'partial/photo-list.html'  with photos=private_photos %}
+    <h2 class="text-center clear">Private albums:</h2>
+
+{% endblock %}
