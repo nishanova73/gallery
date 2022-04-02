@@ -37,3 +37,15 @@ class Photo(models.Model):
 
     def __str__(self):
         return f'{self.author}:{self.title}'
+
+
+class Link(models.Model):
+    photo = models.OneToOneField('webapp.Photo', on_delete=models.CASCADE, related_name='link')
+    link = models.CharField(max_length=200)
+
+    class Meta:
+        verbose_name='Link'
+        verbose_name_plural='Links'
+
+    def __str__(self):
+        return f'{self.link}'
